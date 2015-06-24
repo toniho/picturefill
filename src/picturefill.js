@@ -7,6 +7,8 @@
 	// Enable strict mode
 	"use strict";
 
+	var ua = navigator.userAgent;
+
 	function expose(picturefill) {
 		/* expose picturefill */
 		if ( typeof module === "object" && typeof module.exports === "object" ) {
@@ -23,7 +25,7 @@
 	}
 
 	// If picture is supported, well, that's awesome. Let's get outta here...
-	if ( w.HTMLPictureElement ) {
+	if ( w.HTMLPictureElement  && !((/ecko/).test(ua) && ua.match(/rv\:(\d+)/) && RegExp.$1 < 40) ) {
 		expose(function() { });
 		return;
 	}
