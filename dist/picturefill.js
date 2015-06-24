@@ -1,4 +1,4 @@
-/*! Picturefill - v2.3.1 - 2015-04-09
+/*! Picturefill - v2.3.1 - 2015-06-24
 * http://scottjehl.github.io/picturefill
 * Copyright (c) 2015 https://github.com/scottjehl/picturefill/blob/master/Authors.txt; Licensed MIT */
 /*! matchMedia() polyfill - Test a CSS media type/query in JS. Authors & copyright (c) 2012: Scott Jehl, Paul Irish, Nicholas Zakas, David Knight. Dual MIT/BSD license */
@@ -56,6 +56,8 @@ window.matchMedia || (window.matchMedia = function() {
 	// Enable strict mode
 	"use strict";
 
+	var ua = navigator.userAgent;
+
 	function expose(picturefill) {
 		/* expose picturefill */
 		if ( typeof module === "object" && typeof module.exports === "object" ) {
@@ -72,7 +74,7 @@ window.matchMedia || (window.matchMedia = function() {
 	}
 
 	// If picture is supported, well, that's awesome. Let's get outta here...
-	if ( w.HTMLPictureElement ) {
+	if ( w.HTMLPictureElement  && !((/ecko/).test(ua) && ua.match(/rv\:(\d+)/) && RegExp.$1 < 40) ) {
 		expose(function() { });
 		return;
 	}
